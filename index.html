@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KrishnaVani</title>
+  <style>
+    /* ===== HISTORICAL COLORS ===== */
+    :root {
+        --temple-red: #a7321a;
+        --vedic-gold: #d4af37;
+        --parchment: #f5f0e5;
+        --stone: #b8a99a;
+        --indigo: #4b0082;
+    }
+
+    body {
+        background: url('https://i.pinimg.com/736x/51/04/af/5104afee4ce396b8bbca39fac7b09d7d.jpg') center/cover fixed;
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Cambria', 'Noto Sans', serif;
+    }
+
+    .temple-frame {
+        display: flex;
+        width: 90%;
+        max-width: 1000px;
+        position: relative;
+    }
+
+    .pillar {
+        width: 60px;
+        background: url('https://i.pinimg.com/736x/28/15/43/281543725511163.jpg') repeat-y;
+        background-size: contain;
+        background-position: center;
+        border-right: 4px groove var(--vedic-gold);
+        border-left: 4px groove var(--vedic-gold);
+    }
+
+    .chat-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        height: 80vh;
+        max-height: 700px;
+        background: var(--parchment);
+        border: 8px double var(--vedic-gold);
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        position: relative;
+    }
+
+    .header {
+        background: var(--temple-red);
+        color: var(--vedic-gold);
+        padding: 1rem;
+        text-align: center;
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+        border-bottom: 4px ridge var(--vedic-gold);
+    }
+
+    .messages {
+        flex: 1;
+        padding: 1.5rem;
+        overflow-y: auto;
+        background:
+            url('https://i.pinimg.com/736x/0e/00/3b/0e003b5d8226df604cbe9e961e7635fc.jpg') center/cover,
+            linear-gradient(rgba(245, 240, 229, 0.9), rgba(245, 240, 229, 0.95));
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .message {
+        max-width: 70%;
+        padding: 1rem 1.5rem;
+        border-radius: 20px;
+        position: relative;
+        animation: fadeIn 0.4s ease-out;
+        line-height: 1.6;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .arjuna {
+        align-self: flex-end;
+        background: linear-gradient(to bottom right, #ffffff, #f8f0e0);
+        border: 2px solid #967969;
+        border-radius: 20px 20px 5px 20px;
+        margin-right: 70px;
+    }
+
+    .arjuna::before {
+        content: "";
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        background: url('https://i.pinimg.com/736x/a7/e2/d6/a7e2d6825fb803734f59390bbbfea87a.jpg') no-repeat;
+        background-size: cover;
+        background-position: center;
+        right: -45px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        border: 3px solid var(--vedic-gold);
+    }
+
+    .krishna {
+        align-self: flex-start;
+        background: linear-gradient(to bottom right, #e8f4fd, #d9e6f5);
+        border: 2px solid var(--indigo);
+        border-radius: 20px 20px 20px 5px;
+        margin-left: 70px;
+    }
+
+    .krishna::before {
+        content: "";
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        background: url('https://i.pinimg.com/736x/d9/ea/13/d9ea13de11ba2699189da6db3bfa6185.jpg') no-repeat;
+        background-size: cover;
+        background-position: center top;
+        left: -45px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        border: 3px solid var(--vedic-gold);
+    }
+
+    .audio-controls {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 8px;
+        gap: 5px;
+    }
+
+    .audio-btn {
+        background: var(--vedic-gold);
+        color: var(--temple-red);
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .input-area {
+        padding: 1rem;
+        background: var(--temple-red);
+        display: flex;
+        gap: 0.8rem;
+        border-top: 4px ridge var(--vedic-gold);
+    }
+
+    #user-input {
+        flex: 1;
+        padding: 0.8rem 1rem;
+        border-radius: 24px;
+        border: none;
+        font-family: inherit;
+        font-size: 1rem;
+        background: rgba(255, 255, 255, 0.8);
+    }
+
+    #send-btn {
+        background: var(--vedic-gold);
+        color: var(--temple-red);
+        border: none;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    #send-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 10px var(--vedic-gold);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .history-container {
+        position: relative;
+        padding: 0.5rem;
+        background: rgba(255, 255, 255, 0.8);
+        border-top: 2px solid var(--vedic-gold);
+        transition: all 0.3s ease;
+    }
+
+    .history-toggle {
+        position: absolute;
+        top: -25px;
+        right: 20px;
+        background: var(--vedic-gold);
+        color: var(--temple-red);
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1rem;
+        z-index: 10;
+        box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+
+    .history-toggle:hover {
+        transform: scale(1.1);
+    }
+
+    .history-content {
+        max-height: 150px;
+        overflow-y: auto;
+        transition: all 0.3s ease;
+        padding: 0.5rem;
+    }
+
+    .history-content.collapsed {
+        max-height: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .history-title {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        color: var(--indigo);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .history-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        padding: 0.3rem 0.5rem;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 5px;
+        transition: all 0.2s;
+    }
+
+    .history-item:hover {
+        background: rgba(255, 255, 255, 0.9);
+    }
+
+    .dot {
+        width: 8px;
+        height: 8px;
+        background: var(--indigo);
+        border-radius: 50%;
+        margin-right: 5px;
+    }
+
+    @media (max-width: 768px) {
+        .temple-frame { width: 95%; max-width: 100%; }
+        .pillar { width: 30px; }
+        .header { font-size: 1.5rem; }
+        .message { max-width: 75%; }
+        .arjuna, .krishna {
+            margin-left: 50px !important;
+            margin-right: 50px !important;
+        }
+        .arjuna::before, .krishna::before {
+            width: 50px;
+            height: 50px;
+            left: -35px !important;
+            right: -35px !important;
+        }
+    }
+  </style>
+</head>
+<body>
+<div class="temple-frame">
+    <div class="pillar left"></div>
+    <div class="chat-container">
+        <div class="header">KrishnaVani</div>
+        <div class="messages" id="messages"></div>
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Ask your question...">
+            <button id="send-btn">➤</button>
+        </div>
+        <div class="history-container">
+            <button class="history-toggle" id="history-toggle">≡</button>
+            <div class="history-content collapsed" id="history-content">
+                <div class="history-title">
+                    🕉️ Past Conversations
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pillar right"></div>
+</div>
+
+<script>
+const messagesEl = document.getElementById('messages');
+const userInput = document.getElementById('user-input');
+const sendBtn = document.getElementById('send-btn');
+const historyToggle = document.getElementById('history-toggle');
+const historyContent = document.getElementById('history-content');
+
+let currentSpeech = null;
+let currentButton = null;
+
+function speakMessage(text) {
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.lang = 'hi-IN';
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(msg);
+}
+
+function stopSpeech() {
+    window.speechSynthesis.cancel();
+}
+
+sendBtn.addEventListener('click', sendMessage);
+userInput.addEventListener('keypress', e => {
+    if (e.key === 'Enter') sendMessage();
+});
+
+historyToggle.addEventListener('click', () => {
+    historyContent.classList.toggle('collapsed');
+    historyToggle.textContent = historyContent.classList.contains('collapsed') ? '≡' : '×';
+});
+
+function sendMessage() {
+    const question = userInput.value.trim();
+    if (!question) return;
+    addMessage(question, 'arjuna');
+    userInput.value = '';
+
+    fetch('/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: question })
+    })
+    .then(res => res.json())
+    .then(data => {
+        const krishnaMsg = `
+            ${data.response}
+            <div class="audio-controls">
+                <button class="audio-btn" onclick="speakMessage(this.parentElement.parentElement.textContent)">🔊</button>
+                <button class="audio-btn" onclick="stopSpeech()">🔇</button>
+            </div>
+        `;
+        addMessage(krishnaMsg, 'krishna');
+        addToHistory(question);
+    })
+    .catch(() => {
+        addMessage("⚠️ Something went wrong. Please try again.", 'krishna');
+    });
+}
+
+function addMessage(text, sender) {
+    const div = document.createElement('div');
+    div.classList.add('message', sender);
+    div.innerHTML = text;
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function addToHistory(text) {
+    const item = document.createElement('div');
+    item.classList.add('history-item');
+    item.innerHTML = `<div class="dot"></div> ${text}`;
+    historyContent.appendChild(item);
+}
+</script>
+</body>
+</html>
